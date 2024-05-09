@@ -33,4 +33,10 @@ public class CarpoolingController {
     public PageModel<GroupModel> getGroups(@PathVariable Integer page) {
         return carpoolingBusinessService.getGroups(page);
     }
+
+    @GetMapping("/trips/{page}")
+    public PageModel<TripModel> getAllTrips(@PathVariable Integer page) {
+        return carpoolingBusinessService.getAllTrips(page);
+    }
+
 }

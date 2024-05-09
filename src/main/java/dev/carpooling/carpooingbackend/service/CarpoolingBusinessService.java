@@ -89,4 +89,27 @@ public class CarpoolingBusinessService {
         pageModel.setTotalPages((int) groups.getTotalElements());
         return pageModel;
     }
+
+    public PageModel<TripModel> getAllTrips(Integer page) {
+        var trips = tripRepository.findAll(PageRequest.of(page, pageSize));
+        var items = trips.stream().map(trip -> {
+            TripModel tripModel = new TripModel();
+            tripModel.setSource(trip.getSource());
+            tripModel.setDestination(trip.getDestination());
+            tripModel.setUser(userRepository.findById(trip.getUserId()).map(user -> {
+                UserModel userModel = new UserModel();
+                userModel.setEmail(user.getEmail());
+                userModel.setName(user.getName());
+                userModel.setGender(user.getGender());
+                return userModel;
+            }).orElseThrow(() -> new RuntimeException("User not found")));
+            return tripModel;
+        }).toList();
+        PageModel<TripModel> pageModel = new PageModel<>();
+        pageModel.setItems(items);
+        pageModel.setPageNumber(page);
+        pageModel.setPageSize(pageSize);
+        pageModel.setTotalPages((int) trips.getTotalElements());
+        return pageModel;
+    }
 }
