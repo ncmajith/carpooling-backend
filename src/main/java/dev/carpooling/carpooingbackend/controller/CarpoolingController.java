@@ -1,9 +1,6 @@
 package dev.carpooling.carpooingbackend.controller;
 
-import dev.carpooling.carpooingbackend.model.GroupModel;
-import dev.carpooling.carpooingbackend.model.PageModel;
-import dev.carpooling.carpooingbackend.model.TripModel;
-import dev.carpooling.carpooingbackend.model.UserModel;
+import dev.carpooling.carpooingbackend.model.*;
 import dev.carpooling.carpooingbackend.service.CarpoolingBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +32,7 @@ public class CarpoolingController {
     }
 
     @GetMapping("/trips/{page}")
-    public PageModel<TripModel> getAllTrips(@PathVariable Integer page) {
+    public PageModel<TripResponseModel> getAllTrips(@PathVariable Integer page) {
         return carpoolingBusinessService.getAllTrips(page);
     }
 

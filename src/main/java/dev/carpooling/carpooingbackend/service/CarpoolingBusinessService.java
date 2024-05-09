@@ -3,10 +3,7 @@ package dev.carpooling.carpooingbackend.service;
 import dev.carpooling.carpooingbackend.entities.Group;
 import dev.carpooling.carpooingbackend.entities.Trip;
 import dev.carpooling.carpooingbackend.entities.User;
-import dev.carpooling.carpooingbackend.model.GroupModel;
-import dev.carpooling.carpooingbackend.model.PageModel;
-import dev.carpooling.carpooingbackend.model.TripModel;
-import dev.carpooling.carpooingbackend.model.UserModel;
+import dev.carpooling.carpooingbackend.model.*;
 import dev.carpooling.carpooingbackend.repository.GroupRepository;
 import dev.carpooling.carpooingbackend.repository.TripRepository;
 import dev.carpooling.carpooingbackend.repository.UserRepository;
@@ -90,10 +87,10 @@ public class CarpoolingBusinessService {
         return pageModel;
     }
 
-    public PageModel<TripModel> getAllTrips(Integer page) {
+    public PageModel<TripResponseModel> getAllTrips(Integer page) {
         var trips = tripRepository.findAll(PageRequest.of(page, pageSize));
         var items = trips.stream().map(trip -> {
-            TripModel tripModel = new TripModel();
+            TripResponseModel tripModel = new TripResponseModel();
             tripModel.setSource(trip.getSource());
             tripModel.setDestination(trip.getDestination());
             tripModel.setUser(userRepository.findById(trip.getUserId()).map(user -> {
@@ -105,7 +102,7 @@ public class CarpoolingBusinessService {
             }).orElseThrow(() -> new RuntimeException("User not found")));
             return tripModel;
         }).toList();
-        PageModel<TripModel> pageModel = new PageModel<>();
+        PageModel<TripResponseModel> pageModel = new PageModel<>();
         pageModel.setItems(items);
         pageModel.setPageNumber(page);
         pageModel.setPageSize(pageSize);

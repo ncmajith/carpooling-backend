@@ -1,20 +1,11 @@
 package dev.carpooling.carpooingbackend.model;
 
-public class TripModel {
+public class TripResponseModel {
     private String source;
     private String destination;
 
     private String departureTime;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    private Long userId;
+    private UserModel user;
 
     public String getDepartureTime() {
         return departureTime;
@@ -24,17 +15,24 @@ public class TripModel {
         this.departureTime = departureTime;
     }
 
+    public UserModel getUser() {
+        return user;
+    }
 
-    public TripModel(String source, String destination, String departureTime, Long userId) {
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public TripResponseModel(String source, String destination, String departureTime, UserModel user) {
 
         this.source = source;
         this.destination = destination;
-        this.userId = userId;
+        this.user = user;
         this.departureTime = departureTime;
 
     }
 
-    public TripModel() {
+    public TripResponseModel() {
     }
 
     public String getSource() {
