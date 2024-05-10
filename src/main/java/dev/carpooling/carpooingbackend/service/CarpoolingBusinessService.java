@@ -1,5 +1,6 @@
 package dev.carpooling.carpooingbackend.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.carpooling.carpooingbackend.entities.Group;
 import dev.carpooling.carpooingbackend.entities.Trip;
 import dev.carpooling.carpooingbackend.entities.User;
@@ -9,9 +10,11 @@ import dev.carpooling.carpooingbackend.repository.TripRepository;
 import dev.carpooling.carpooingbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,5 +111,16 @@ public class CarpoolingBusinessService {
         pageModel.setPageSize(pageSize);
         pageModel.setTotalPages((int) trips.getTotalElements());
         return pageModel;
+    }
+
+    public List<CabData.CabService> getAllTrips() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClassPathResource resource = new ClassPathResource("json/available-cabs.json");
+            CabData cabData = objectMapper.readValue(resource.getFile(), CabData.class);
+            return cabData.getCabs();
+        } catch (IOException e) {
+            throw new RuntimeException("Getting error while fetching available cabs detail.");
+        }
     }
 }

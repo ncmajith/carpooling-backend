@@ -1,0 +1,38 @@
+{
+  "cabs": [
+    {
+      "service": "Ola",
+      "cars": [
+        {
+          "car_type": "Mini",
+          "price": "₹200"
+        },
+        {
+          "car_type": "Sedan",
+          "price": "₹300"
+        },
+        {
+          "car_type": "SUV",
+          "price": "₹400"
+        }
+      ]
+    },
+    {
+      "service": "Uber",
+      "cars": [
+        {
+          "car_type": "UberX",
+          "price": "₹240"
+        },
+        {
+          "car_type": "UberBlack",
+          "price": "₹360"
+        },
+        {
+          "car_type": "UberXL",
+          "price": "₹440"
+        }
+      ]
+    }
+  ]
+}
